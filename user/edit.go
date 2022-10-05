@@ -30,7 +30,6 @@ func Edit(c *gin.Context) {
 	})
 
 	if err != nil {
-		fmt.Println(2)
 		fmt.Println(err)
 		return
 	}
