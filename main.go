@@ -16,7 +16,7 @@ func main() {
 	router.GET("/user", user.GetList)
 	router.GET("/user/:id", user.Get)
 	router.POST("/user", user.Create)
-	router.PATCH("/users:id", user.Edit)
+	router.PATCH("/user/:id", user.Edit)
 	router.DELETE("/user/:id", user.Delete)
 
 	router.Run(":8080")
