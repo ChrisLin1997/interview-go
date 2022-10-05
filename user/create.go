@@ -9,15 +9,6 @@ import (
 	"github.com/t-pwk/go-flakeid"
 )
 
-type User struct {
-	Id   int64  `json:"id,string" db:"id"`
-	Name string `json:"name" db:"name"`
-}
-
-type createRequest struct {
-	Name string `json:"name"`
-}
-
 func Create(c *gin.Context) {
 	var body createRequest
 	if err := c.ShouldBind(&body); err != nil {
