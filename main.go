@@ -1,13 +1,23 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"user-server/db"
+	"user-server/user"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "ping",
-		})
-	})
-	r.Run()
+	db.Connect()
+
+	gin.ForceConsoleColor()
+
+	router := gin.Default()
+	router.GET("/user", user.GetList)
+	router.GET("/user/:id", user.Get)
+	router.POST("/user", user.Create)
+	router.PATCH("/users:id", user.Edit)
+	router.DELETE("/user/:id", user.Delete)
+
+	router.Run(":8080")
 }
