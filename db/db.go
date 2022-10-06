@@ -1,7 +1,9 @@
 package db
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -10,7 +12,17 @@ import (
 var db *sqlx.DB
 
 func Connect() {
-	postgre, err := sqlx.Open("postgres", "host=127.0.0.1 port=5432 user=postgres password=0000 dbname=postgres sslmode=disable")
+	dbHost := os.Getenv("POSTGRES_HOST")
+	dbPort := os.Getenv("POSTGRES_PORT")
+	dbUser := os.Getenv("POSTGRES_USER")
+	dbPassword := os.Getenv("POSTGRES_PASSWORD")
+	dbName := os.Getenv("POSTGRES_DB_NAME")
+	dbSslMode := os.Getenv("POSTGRES_SSL_MODE")
+
+	sourceName := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", dbHost, dbPort, dbUser, dbPassword, dbName, dbSslMode)
+	fmt.Println(sourceName)
+
+	postgre, err := sqlx.Open("postgres", sourceName)
 
 	if err != nil {
 		log.Fatalln(err)
